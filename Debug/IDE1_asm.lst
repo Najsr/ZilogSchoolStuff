@@ -1,0 +1,90 @@
+Zilog Z8 Encore! Macro Assembler Version 2.50 (08031703) 27-Nov-17     10:20:56     page:   1
+
+
+PC     Object              I  Line    Source 
+                           B     0    INCLUDE "ez8.inc"
+                           B     1    ;**********************************************
+                           B     2    ;*  Copyright (C) 1999-2006 by  Zilog, Inc.
+                           B     3    ;*  All Rights Reserved
+                           B     4    ;**********************************************
+                           B     5    
+                           B   706    	.list on
+                           B   707    
+                           B   708    
+000002 0100                A     2    VECTOR Reset=zacatek
+                           A     3    org %100
+000100                     A     4    zacatek:
+000100 0100                A     5    SRP #%00
+000102 E9FF0FFF            A     6    LDX SPL,#%FF
+000106 E9000FFE            A     7    LDX SPH,#%00
+                           A     8    
+00010A E9010FD0            A     9    LDX PAADDR,#%01
+00010E E9000FD1            A    10    LDX PACTL,#%00
+                           A    11    
+000112 E9110EEB            A    12    LDX R11,#%11
+                           A    13    
+                           A    14    ;dasdasdasdsdasdasdasdsadasdasdads
+                           A    15    
+000116 E9110EEB            A    16    LDX R11,#%11
+00011A                     A    17    opakuj:
+00011A E9600EEA            A    18    LDX R10,#%60
+00011E                     A    19    zacit_vlevo:
+00011E D6 014D             A    20    CALL toc_doleva
+000121 30EA                A    21    DEC R10
+000123 ED 011E             A    22    JP nz,zacit_vlevo
+000126 D6 015F             A    23    CALL cekej
+000129 D6 015F             A    24    CALL cekej
+00012C D6 015F             A    25    CALL cekej
+00012F D6 015F             A    26    CALL cekej
+                           A    27    
+000132 E9400EEA            A    28    LDX R10,#%40
+                           A    29    
+000136                     A    30    zacit_vpravo:
+000136 D6 0156             A    31    CALL toc_doprava
+000139 30EA                A    32    DEC R10
+00013B ED 0136             A    33    JP nz,zacit_vpravo
+00013E D6 015F             A    34    CALL cekej
+000141 D6 015F             A    35    CALL cekej
+000144 D6 015F             A    36    CALL cekej
+000147 D6 015F             A    37    CALL cekej
+00014A 8D 011A             A    38    JP opakuj
+                           A    39    
+                           A    40    
+                           A    41    ;konec
+                           A    42    
+00014D                     A    43    toc_doleva:
+00014D 94BFD3              A    44    LDX PAOUT,R11
+Zilog Z8 Encore! Macro Assembler Version 2.50 (08031703) 27-Nov-17     10:20:56     page:   2
+
+
+PC     Object              I  Line    Source C:\Users\BEZHES~1\Desktop\Zilog\IDE1_asm.s
+000150 90EB                A    45    RL R11
+000152 D6 015F             A    46    CALL cekej
+000155 AF                  A    47    RET
+                           A    48    
+000156                     A    49    toc_doprava:
+000156 94BFD3              A    50    LDX PAOUT,R11
+000159 E0EB                A    51    RR R11
+00015B D6 015F             A    52    CALL cekej
+00015E AF                  A    53    RET
+                           A    54    
+00015F                     A    55    cekej:
+00015F E9040EE0            A    56    LDX R0,#%04
+000163 B0E1                A    57    CLR R1
+000165 B0E2                A    58    CLR R2
+000167                     A    59    hopsem:
+000167 30E2                A    60    DEC R2
+000169 EB FC               A    61    JR nz,hopsem
+                           A    62    
+00016B 30E1                A    63    DEC R1
+00016D EB F8               A    64    JR nz,hopsem
+                           A    65    
+00016F 30E0                A    66    DEC R0
+000171 EB F4               A    67    JR nz,hopsem
+                           A    68    
+000173 AF                  A    69    RET
+
+
+Errors: 0
+Warnings: 0
+Lines Assembled: 1658

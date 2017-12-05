@@ -1,0 +1,139 @@
+Zilog Z8 Encore! Macro Assembler Version 2.50 (08031703) 05-Dec-17     09:05:53     page:   1
+
+
+PC     Object              I  Line    Source 
+                           B     0    INCLUDE "ez8.inc"
+                           B     1    ;**********************************************
+                           B     2    ;*  Copyright (C) 1999-2006 by  Zilog, Inc.
+                           B     3    ;*  All Rights Reserved
+                           B     4    ;**********************************************
+                           B     5    
+                           B   706    	.list on
+                           B   707    
+                           B   708    
+000002 0100                A     2    VECTOR Reset=zacatek
+                           A     3    org %100
+000100                     A     4    zacatek:
+000100 0100                A     5    SRP #%00
+000102 E9FF0FFF            A     6    LDX SPL,#%FF
+000106 E9000FFE            A     7    LDX SPH,#%00
+                           A     8    
+00010A E9010FD0            A     9    LDX PAADDR,#%01
+00010E E9000FD1            A    10    LDX PACTL,#%00
+000112 E9010FD4            A    11    LDX PBADDR,#%01
+000116 E9000FD5            A    12    LDX PBCTL,#%00
+                           A    13    
+                           A    14    ;CESA ----   
+                           A    15    ; C - 00111001 - 39
+                           A    16    ; E - 01111001 - 79
+                           A    17    ; S - 01101101 - 6D
+                           A    18    ; A - 01110111 - 77
+                           A    19    ; 
+                           A    20    ; AHOJ
+                           A    21    ; A - 77
+                           A    22    ; H - 01110110 - 76
+                           A    23    ; O - 00111111 - 3F
+                           A    24    ; J - 00011110 - 1E
+                           A    25    
+                           A    26    ; 8 - 4.
+                           A    27    ; 4 - 3.
+                           A    28    ; 2 - 2.
+                           A    29    ; 1 - 1.
+00011A E9040EE3            A    30    LDX R3,#%04
+00011E B0E4                A    31    CLR R4
+000120 B0E5                A    32    CLR R5
+                           A    33    
+000122                     A    34    opakuj:
+                           A    35    
+                           A    36    ;C
+000122 E9010FD7            A    37    LDX PBOUT,#%01
+000126 E9390FD3            A    38    LDX PAOUT,#%39
+00012A D6 018D             A    39    CALL cekej
+                           A    40    ;E
+00012D E9020FD7            A    41    LDX PBOUT,#%02
+000131 E9790FD3            A    42    LDX PAOUT,#%79
+000135 D6 018D             A    43    CALL cekej
+                           A    44    ;S
+Zilog Z8 Encore! Macro Assembler Version 2.50 (08031703) 05-Dec-17     09:05:53     page:   2
+
+
+PC     Object              I  Line    Source C:\Users\BEZHES~1\Desktop\Zilog\7SEG_asm.s
+000138 E9040FD7            A    45    LDX PBOUT,#%04
+00013C E96D0FD3            A    46    LDX PAOUT,#%6D
+000140 D6 018D             A    47    CALL cekej
+                           A    48    ;A
+000143 E9080FD7            A    49    LDX PBOUT,#%08
+000147 E9770FD3            A    50    LDX PAOUT,#%77
+00014B D6 018D             A    51    CALL cekej
+                           A    52    
+                           A    53    
+00014E 30E5                A    54    DEC R5
+000150 EB D0               A    55    JR nz,opakuj
+                           A    56    ;DEC R4
+                           A    57    ;JR nz,opakuj
+                           A    58    ;DEC R3
+                           A    59    ;JR nz,opakuj
+                           A    60    
+000152 E9040EE3            A    61    LDX R3,#%04
+000156 B0E4                A    62    CLR R4
+000158 B0E5                A    63    CLR R5
+                           A    64    
+00015A                     A    65    twoseg:
+                           A    66    ;A
+00015A E9010FD7            A    67    LDX PBOUT,#%01
+00015E E9770FD3            A    68    LDX PAOUT,#%77
+000162 D6 018D             A    69    CALL cekej
+                           A    70    ;H
+000165 E9020FD7            A    71    LDX PBOUT,#%02
+000169 E9760FD3            A    72    LDX PAOUT,#%76
+00016D D6 018D             A    73    CALL cekej
+                           A    74    ;O
+000170 E9040FD7            A    75    LDX PBOUT,#%04
+000174 E93F0FD3            A    76    LDX PAOUT,#%3F
+000178 D6 018D             A    77    CALL cekej
+                           A    78    ;J
+00017B E9080FD7            A    79    LDX PBOUT,#%08
+00017F E91E0FD3            A    80    LDX PAOUT,#%1E
+000183 D6 018D             A    81    CALL cekej
+                           A    82    
+000186 30E5                A    83    DEC R5
+000188 EB D0               A    84    JR nz,twoseg
+00018A 8D 0122             A    85    JP opakuj
+                           A    86    
+                           A    87    
+00018D                     A    88    cekej:
+00018D E9040EE0            A    89    LDX R0,#%04
+000191 B0E1                A    90    CLR R1
+000193                     A    91    hopsem:
+                           A    92    
+000193 30E1                A    93    DEC R1
+000195 EB FC               A    94    JR nz,hopsem
+                           A    95    
+000197 30E0                A    96    DEC R0
+Zilog Z8 Encore! Macro Assembler Version 2.50 (08031703) 05-Dec-17     09:05:53     page:   3
+
+
+PC     Object              I  Line    Source C:\Users\BEZHES~1\Desktop\Zilog\7SEG_asm.s
+000199 EB F8               A    97    JR nz,hopsem
+                           A    98    
+00019B AF                  A    99    RET
+                           A   100    
+00019C                     A   101    cekejdyl:
+00019C E9040EE3            A   102    LDX R3,#%04
+0001A0 B0E4                A   103    CLR R4
+0001A2 B0E5                A   104    CLR R5
+0001A4                     A   105    hopsemdyl:
+0001A4 30E5                A   106    DEC R5
+0001A6 EB FC               A   107    JR nz,hopsemdyl
+0001A8 30E4                A   108    DEC R4
+0001AA EB F8               A   109    JR nz,hopsemdyl
+                           A   110    
+0001AC 30E3                A   111    DEC R3
+0001AE EB F4               A   112    JR nz,hopsemdyl
+                           A   113    
+0001B0 AF                  A   114    RET
+
+
+Errors: 0
+Warnings: 0
+Lines Assembled: 1703
